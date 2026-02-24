@@ -52,9 +52,7 @@ User Request (Port 80)
 ## Docker Setup
 
 ### Build Images Locally
-
-```
-bash
+```bash
 # Build backend
 docker build -t akshat919/backend:latest ./backend
 
@@ -63,7 +61,6 @@ docker build -t akshat919/frontend:latest ./frontend
 ```
 
 ### Run with Docker Compose
-
 ```
 bash
 # Start all services
@@ -77,7 +74,6 @@ docker-compose down
 ```
 
 ### Push to Docker Hub
-
 ```
 bash
 # Login to Docker Hub
@@ -94,19 +90,14 @@ docker push akshat919/frontend:latest
 
 ### VM Setup
 1. Launch Ubuntu 20.04+ VM on AWS
-2. Configure security group to allow:
-   - Port 22 (SSH)
-   - Port 80 (HTTP)
-   - Port 443 (HTTPS - optional)
+2. Configure security group to allow Port 22 (SSH) and Port 80 (HTTP)
 3. SSH into the VM:
-
 ```
 bash
 ssh -i "Akshat.pem" ubuntu@13.63.159.184
 ```
 
 ### Install Docker on VM
-
 ```
 bash
 # Update system
@@ -122,7 +113,6 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 ### Deploy Application
-
 ```
 bash
 # Clone repository
@@ -143,17 +133,13 @@ docker-compose logs -f
 ## CI/CD Pipeline
 
 ### GitHub Actions Workflow
-
 The CI/CD pipeline is configured in `.github/workflows/deploy.yml` and performs:
-
 1. **Build**: Compiles Docker images for backend and frontend
-2. **Test**: (Can be added) Run unit/integration tests
-3. **Push**: Pushes images to Docker Hub
-4. **Deploy**: SSH into AWS VM and pulls latest images
+2. **Push**: Pushes images to Docker Hub
+3. **Deploy**: SSH into AWS VM and pulls latest images
 
 ### Required Secrets
-
-Configure these secrets in GitHub repository settings:
+Configure these secrets in GitHub repository settings (Settings → Secrets and variables → Actions):
 
 | Secret Name | Description |
 |-------------|-------------|
@@ -162,17 +148,44 @@ Configure these secrets in GitHub repository settings:
 | AWS_HOST | AWS VM IP (13.63.159.184) |
 | AWS_SSH_KEY | Private SSH key for VM access |
 
+### Step-by-Step Secrets Configuration
+
+Follow these steps to configure the required secrets in GitHub:
+
+#### Step 1: Navigate to Repository Settings
+1. Go to: https://github.com/Akshat338/Devops-Assignment-123
+2. Click **Settings** tab (top of repository)
+3. Click **Secrets and variables** in left sidebar
+4. Click **Actions**
+
+#### Step 2: Add DOCKERHUB_USERNAME
+1. Click **New repository secret** button
+2. In **Name**, enter: `DOCKERHUB_USERNAME`
+3. In **Secret**, enter: `akshat919`
+4. Click **Add secret**
+
+#### Step 3: Add DOCKERHUB_TOKEN
+1. Click **New repository secret** button
+2. In **Name**, enter: `DOCKERHUB_TOKEN`
+3. In **Secret**, enter your Docker Hub token
+4. Click **Add secret**
+
+#### Step 4: Add AWS_HOST
+1. Click **New repository secret** button
+2. In **Name**, enter: `AWS_HOST`
+3. In **Secret**, enter: `13.63.159.184`
+4. Click **Add secret**
+
+#### Step 5: Add AWS_SSH_KEY
+1. Click **New repository secret** button
+2. In **Name**, enter: `AWS_SSH_KEY`
+3. In **Secret**, paste entire content of Akshat.pem file (including BEGIN and END lines)
+4. Click **Add secret**
+
 ### Trigger Pipeline
-
-The pipeline automatically runs on:
-- Push to main branch
-- Pull request to main branch
-
-### Manual Trigger
-
+The pipeline automatically runs on push to main branch:
 ```
 bash
-# Push changes to trigger pipeline
 git add .
 git commit -m "Your commit message"
 git push origin main
@@ -184,11 +197,8 @@ git push origin main
 |----------|-------------|
 | http://13.63.159.184/ | Angular Frontend |
 | http://13.63.159.184/api/tutorials | Get all tutorials |
-| http://13.63.159.184/api/tutorials/:id | Get tutorial by ID |
 
 ## MongoDB Connection
-
-The application uses the following MongoDB connection:
 - Host: mongodb (Docker container)
 - Port: 27017
 - Database: dd_db
@@ -196,30 +206,16 @@ The application uses the following MongoDB connection:
 - Password: password
 
 ## Nginx Configuration
-
 Nginx is configured to:
 - Serve static Angular files
 - Proxy API requests to the backend
-- Enable Gzip compression for better performance
-
-## Screenshots
-
-### CI/CD Configuration
-![CI/CD Pipeline](screenshots/cicd-config.png)
-
-### Docker Build and Push
-![Docker Build](screenshots/docker-build.png)
-
-### Application Deployment
-![Deployment](screenshots/deployment.png)
-
-### Nginx Setup
-![Nginx](screenshots/nginx-setup.png)
+- Enable Gzip compression
 
 ## Troubleshooting
 
 ### Check Container Logs
-```bash
+```
+bash
 docker-compose logs -f backend
 docker-compose logs -f frontend
 docker-compose logs -f mongodb
@@ -237,13 +233,5 @@ bash
 docker-compose build --no-cache
 ```
 
-### Check Network Connectivity
-```
-bash
-docker network ls
-docker network inspect app-network
-```
-
 ## License
-
 ISC License
