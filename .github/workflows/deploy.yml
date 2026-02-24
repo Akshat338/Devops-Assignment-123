@@ -54,6 +54,13 @@ jobs:
           script: |
             cd /home/ubuntu
             
+            # Clone repository if not exists
+            if [ ! -d "Devops-Assignment-123" ]; then
+              git clone https://github.com/Akshat338/Devops-Assignment-123.git
+            fi
+            
+            cd Devops-Assignment-123
+            
             # Stop existing containers
             docker-compose down || true
             
