@@ -64,7 +64,8 @@ docker build -t akshat919/frontend:latest ./frontend
 
 ### Run with Docker Compose
 
-```bash
+```
+bash
 # Start all services
 docker-compose up -d
 
@@ -218,8 +219,7 @@ Nginx is configured to:
 ## Troubleshooting
 
 ### Check Container Logs
-```
-bash
+```bash
 docker-compose logs -f backend
 docker-compose logs -f frontend
 docker-compose logs -f mongodb
