@@ -3,6 +3,21 @@
 ## Overview
 This is a complete MEAN (MongoDB, Express, Angular, Node.js) stack application with Docker containerization, CI/CD pipeline,AWS EC2 and Nginx reverse proxy.
 
+## 📋 Architecture Overview
+
+- **Frontend:** Angular 15 (compiled to static files served by Nginx)
+- **Backend:** Node.js + Express (REST API)
+- **Database:** MongoDB 7
+- **Reverse Proxy:** Nginx 1.27
+- **Orchestration:** Docker Compose
+- **CI/CD:** GitHub Actions
+- **Registry:** Docker Hub
+- **Cloud Platform:** AWS EC2
+
+The application is exposed on port 80:
+- `/` → Angular frontend
+- `/api/*` → Node.js/Express backend
+- 
 ## Project Structure
 ```
 .
@@ -18,8 +33,6 @@ This is a complete MEAN (MongoDB, Express, Angular, Node.js) stack application w
 ├── .github/workflows/       # GitHub Actions CI/CD
 └── README.md                # This file
 ```
-
-## Architecture
 
 ### Components
 1. **MongoDB** (Port 27017) - Database container
@@ -50,7 +63,27 @@ User Request (Port 80)
 - GitHub Account with repository access
 
 ## Docker Setup
+### Local Development
 
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/<your-username>/crud-dd-task-mean-app.git
+   cd crud-dd-task-mean-app
+   ```
+
+2. **Run locally with Docker Compose:**
+   ```bash
+   docker compose up -d --build
+   ```
+
+3. **Access the application:**
+   - Frontend UI: http://localhost
+   - API: http://localhost/api/tutorials
+   - 
+4. **Stop the application:**
+   ```bash
+   docker compose down
+   
 ### Build Images Locally
 ```bash
 # Build backend
@@ -73,8 +106,12 @@ docker-compose logs -f
 docker-compose down
 ```
 
+## 🐳 Docker & Docker Hub Setup
+
+### Build and Push Images to Docker Hub
 ### Push to Docker Hub
 ```
+
 bash
 # Login to Docker Hub
 docker login -u akshat919
@@ -132,6 +169,20 @@ docker-compose logs -f
 
 ## CI/CD Pipeline
 
+## 🔄 GitHub Actions CI/CD Pipeline
+
+### Setup CI/CD Pipeline
+
+1. **Push code to GitHub:**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial MEAN app with Docker, Nginx, and CI/CD"
+   git branch -M main
+   git remote add origin https://github.com/<your-username>/crud-dd-task-mean-app.git
+   git push -u origin main
+   ```
+   
 ### GitHub Actions Workflow
 The CI/CD pipeline is configured in `.github/workflows/deploy.yml` and performs:
 1. **Build**: Compiles Docker images for backend and frontend
