@@ -1,7 +1,7 @@
 # DevOps Assignment - MEAN Stack Application
 
 ## Overview
-This is a complete MEAN (MongoDB, Express, Angular, Node.js) stack application with Docker containerization, CI/CD pipeline, and Nginx reverse proxy.
+This is a complete MEAN (MongoDB, Express, Angular, Node.js) stack application with Docker containerization, CI/CD pipeline,AWS EC2 and Nginx reverse proxy.
 
 ## Project Structure
 ```
